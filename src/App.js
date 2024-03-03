@@ -1,23 +1,30 @@
-import logo from './logo.svg';
+
 import './App.css';
+import { GoogleOAuthProvider, GoogleLogin  } from '@react-oauth/google';
 
 function App() {
+
+  const CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+
+  console.log("CLIENT_ID>>>>", CLIENT_ID)
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+      <div className="App-header">
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+        React OAuth2 |  Auth0 Google Authentication
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <GoogleOAuthProvider clientId={CLIENT_ID} >
+        <GoogleLogin
+  onSuccess={credentialResponse => {
+    console.log(credentialResponse);
+  }}
+  onError={() => {
+    console.log('Login Failed');
+  }}
+/>;
+          </GoogleOAuthProvider>;
+      </div>
     </div>
   );
 }
